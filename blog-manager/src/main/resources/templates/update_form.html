@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-container">
+    <form class="layui-form" action="/article/save_mata" id="update_form">
+        <input style="display: none" name="id" th:value="${article.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="text" th:value="${article.title}" name="title" required lay-verify="required"
+                       placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">复选框</label>
+            <div class="layui-input-block">
+                <span th:each="tag:${tags}">
+                    <input type="checkbox" name="tags[]" th:value="${tag.id}" th:title="${tag.name}"
+                           th:unless="${tag.has}">
+                    <input type="checkbox" name="tags[]" th:value="${tag.id}" th:title="${tag.name}" th:if="${tag.has}"
+                           checked>
+                </span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布</label>
+            <div class="layui-input-block">
+                <input type="checkbox" th:if="${article.published}" checked name="published" lay-skin="switch">
+                <input type="checkbox" th:unless="${article.published}" name="published" lay-skin="switch">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            var arr=[];
+            $('span input[type="checkbox"]:checked').each(function (index, ele) {
+                arr.push(ele.value)
+            });
+            $.post(
+                '/article/save_mata', {
+                    id: data.field.id,
+                    title: data.field.title,
+                    tags: arr,
+                    published: data.field.published
+                },
+                function (e) {
+                    layer.msg(e.data)
+                }
+            );
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+</script>
+</body>
+</html>

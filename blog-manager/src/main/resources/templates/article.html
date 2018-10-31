@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>article</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+</head>
+<body>
+
+<table id="article_table" lay-filter="article_table"></table>
+
+<div style="display: none" id="article_table_toolbar" class="layui-table-tool-temp">
+    <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>
+    <div class="layui-inline" lay-event="update"><i class="layui-icon layui-icon-edit"></i></div>
+    <div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>
+    <div class="layui-inline" lay-event="edit"><i class="layui-icon layui-icon-file"></i></div>
+    <input id="search_text" type="text" placeholder="请输入标题" style="text-align: center" class="layui-input-block layui-btn-radius">
+    <button class="layui-btn layui-btn-sm" lay-event="search"><i class="layui-icon layui-icon-search"></i>搜索</button>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/article.js"></script>
+</body>
+</html>

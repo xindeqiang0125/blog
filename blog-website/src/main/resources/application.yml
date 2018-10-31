@@ -1,0 +1,23 @@
+server:
+  port: 80
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    password: xdq123
+    username: root
+
+  resources:
+    static-locations: classpath:/static,file:/usr/xin-blog/blog-server
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

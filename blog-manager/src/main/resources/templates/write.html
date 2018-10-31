@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>写博客</title>
+    <style>
+        .w-e-text-container{
+            height: 420px!important;
+        }
+    </style>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<span id="articleId" style="display: none" th:text="${article.id}"></span>
+<div id="editor">
+</div>
+<div class="layui-input-block">
+    <button onclick="onClickSaveBtn()" style="margin: 5px" class="layui-btn layui-btn-sm layui-layout-right">
+        <i class="layui-icon layui-icon-file"></i>
+        保存文章
+    </button>
+</div>
+</form>
+
+
+<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    initEditor();
+    function initEditor() {
+        // 配置服务器端地址
+        editor.customConfig.uploadImgServer = '/upload';
+        editor.customConfig.uploadFileName = 'files';
+        // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+        editor.create();
+
+        editor.txt.html([[${article.content}]]);
+    }
+    
+    function onClickSaveBtn() {
+        $.post('/article/save_content',{
+            'id':$('#articleId').text(),
+            'content': editor.txt.html()
+        },function (e) {
+            layer.msg(e.data);
+        })
+    }
+</script>
+</body>
+</html>

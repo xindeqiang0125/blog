@@ -1,0 +1,49 @@
+.floatitem{
+    display: inline-block;
+    position: relative;
+    min-width: 150px;
+    min-height: 100px;
+}
+.floatitem .item{
+    width: 100%;
+    height: 100%;
+    min-width: 150px;
+    min-height: 100px;
+    border-radius: 40px;
+    background-color: #2D93CA;
+}
+.floatitem .close {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px 0px black;
+    cursor: pointer;
+    background-color: #cc1e10;
+}
+
+.floatitem .close:hover {
+    background-color: #d94e34;
+}
+.floatitem .close:before {
+    position: absolute;
+    content: '';
+    width: 24px;
+    height: 6px;
+    background: white;
+    transform: rotate(45deg);
+    top: 15px;
+    left: 6px;
+}
+.floatitem .close:after{
+    position: absolute;
+    content: '';
+    width: 24px;
+    height: 6px;
+    background: white;
+    transform: rotate(-45deg);
+    top: 15px;
+    left: 6px;
+}
